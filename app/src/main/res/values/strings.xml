@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ZoneCheck</string>
+    <string name="title">Zone Check</string>
+    <string name="hint_age">Age</string>
+    <string name="hint_hr">Heart rate (bpm)</string>
+    <string name="outdoor">Outdoor</string>
+    <string name="check">Check</string>
+    <string name="error_input">Enter age and heart rate</string>
+</resources>
