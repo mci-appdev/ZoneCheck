@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lesson 4 (L4-M): lighter zone colours for dark mode, all >= 4.5:1 on the dark surface -->
+    <color name="zone_rest">#90CAF9</color>
+    <color name="zone_fat_burn">#A5D6A7</color>
+    <color name="zone_cardio">#FFAB91</color>
+    <color name="zone_peak">#EF9A9A</color>
+</resources>

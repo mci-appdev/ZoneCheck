@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import at.mci.zonecheck.model.Zone;
@@ -22,7 +23,6 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ViewHold
         this.maxHr = maxHr;
     }
 
-    // H: one holder per row on screen, finds the two labels once
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView txtBpm, txtZone;
 
@@ -33,7 +33,6 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ViewHold
         }
     }
 
-    // 2: create an empty row from item_reading.xml
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,17 +41,27 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ViewHold
         return new ViewHolder(row);
     }
 
-    // 3: put reading number `position` into this row
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int position) {
         int hr = readings.get(position);
+        Zone zone = Zone.of(hr, maxHr);
         h.txtBpm.setText(h.itemView.getContext().getString(R.string.bpm_fmt, hr));
-        h.txtZone.setText(Zone.of(hr, maxHr).name());
+        h.txtZone.setText(zone.name());
+        h.txtZone.setTextColor(ContextCompat.getColor(h.itemView.getContext(), colorOf(zone)));
     }
 
-    // 1: how many rows?
     @Override
     public int getItemCount() {
         return readings.size();
+    }
+
+    // L4-M: colour carries meaning, one colour per zone (values/ and values-night/)
+    private static int colorOf(Zone zone) {
+        switch (zone) {
+            case REST: return R.color.zone_rest;
+            case FAT_BURN: return R.color.zone_fat_burn;
+            case CARDIO: return R.color.zone_cardio;
+            default: return R.color.zone_peak;
+        }
     }
 }

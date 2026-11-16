@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Lesson 4 (L4-M): one colour per zone, all >= 4.5:1 on white -->
+    <color name="zone_rest">#1565C0</color>
+    <color name="zone_fat_burn">#2E7D32</color>
+    <color name="zone_cardio">#D84315</color>
+    <color name="zone_peak">#C62828</color>
 </resources>
