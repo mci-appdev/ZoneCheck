@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,20 +24,24 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String KEY_READINGS = "readings";
+    private static final String KEY_MAX_HR = "maxHr";
+    private static final String KEY_RESULT = "result";
+
     private EditText editAge;
     private EditText editHr;
     private MaterialSwitch switchOutdoor;
     private Button btnCheck;
+    private Button btnSession;
     private TextView txtResult;
 
-    // Lesson 4: what the Session screen needs
-    private Button btnSession;
     private ArrayList<Integer> readings = new ArrayList<>();
     private int maxHr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Life", "Main onCreate");
         WindowCompat.enableEdgeToEdge(getWindow());
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -50,8 +55,15 @@ public class MainActivity extends AppCompatActivity {
         editHr = findViewById(R.id.editHr);
         switchOutdoor = findViewById(R.id.switchOutdoor);
         btnCheck = findViewById(R.id.btnCheck);
-        txtResult = findViewById(R.id.txtResult);
         btnSession = findViewById(R.id.btnSession);
+        txtResult = findViewById(R.id.txtResult);
+
+        if (savedInstanceState != null) {          // coming back after a rotation
+            ArrayList<Integer> saved = savedInstanceState.getIntegerArrayList(KEY_READINGS);
+            if (saved != null) readings = saved;
+            maxHr = savedInstanceState.getInt(KEY_MAX_HR, 0);
+            txtResult.setText(savedInstanceState.getString(KEY_RESULT, ""));
+        }
 
         btnCheck.setOnClickListener(v -> {
             String ageText = editAge.getText().toString().trim();
@@ -71,12 +83,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Lesson 4: an explicit Intent opens our own second screen
         btnSession.setOnClickListener(v -> {
             Intent intent = new Intent(this, SessionActivity.class);
             intent.putExtra(SessionActivity.EXTRA_MAX_HR, maxHr);
             intent.putIntegerArrayListExtra(SessionActivity.EXTRA_READINGS, readings);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("Life", "Main onSaveInstanceState");
+        outState.putIntegerArrayList(KEY_READINGS, readings);
+        outState.putInt(KEY_MAX_HR, maxHr);
+        outState.putString(KEY_RESULT, txtResult.getText().toString());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();          // always first on the way up
+        Log.d("Life", "Main onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Life", "Main onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("Life", "Main onPause");
+        super.onPause();          // on the way down: your code first
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("Life", "Main onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("Life", "Main onDestroy");
+        super.onDestroy();
     }
 }
