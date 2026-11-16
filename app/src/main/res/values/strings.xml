@@ -6,4 +6,11 @@
     <string name="outdoor">Outdoor</string>
     <string name="check">Check</string>
     <string name="error_input">Enter age and heart rate</string>
+    <!-- Lesson 4 (L4-A) -->
+    <string name="session">Session</string>
+    <string name="share">Share</string>
+    <string name="summary_fmt">%1$d readings, max HR %2$d</string>
+    <string name="bpm_fmt">%d bpm</string>
+    <string name="share_title">Share session</string>
+    <string name="share_fmt">Zone Check: %1$s</string>
 </resources>

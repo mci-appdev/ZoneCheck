@@ -19,11 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Lesson 4: age and heart rate side by side, a horizontal chain -->
     <EditText
         android:id="@+id/editAge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:hint="@string/hint_age"
         android:textColorHint="#616161"
@@ -32,21 +34,20 @@
         android:importantForAutofill="no"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/editHr" />
 
     <EditText
         android:id="@+id/editHr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:hint="@string/hint_hr"
         android:textColorHint="#616161"
         android:inputType="number"
         android:minHeight="48dp"
         android:importantForAutofill="no"
-        app:layout_constraintTop_toBottomOf="@id/editAge"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/editAge"
+        app:layout_constraintStart_toEndOf="@id/editAge"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
@@ -61,24 +62,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Lesson 4: Check and Session in one row, a second chain -->
     <Button
         android:id="@+id/btnCheck"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:text="@string/check"
         app:layout_constraintTop_toBottomOf="@id/switchOutdoor"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSession" />
+
+    <Button
+        android:id="@+id/btnSession"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/session"
+        app:layout_constraintTop_toTopOf="@id/btnCheck"
+        app:layout_constraintStart_toEndOf="@id/btnCheck"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Lesson 4: the number that matters is the biggest thing on the screen -->
     <TextView
         android:id="@+id/txtResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:textSize="18sp"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/btnCheck"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
